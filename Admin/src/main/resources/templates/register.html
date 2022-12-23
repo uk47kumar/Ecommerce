@@ -36,8 +36,17 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                         </div>
-                        <div th:if="${session.message}">
-                                <p class="alert alert-danger" th:text="${session.message}"></p>
+                        <div th:if="${error}">
+                                <p class="alert alert-warning" th:text="${error}"></p>
+                        </div>
+                        <div th:if="${successRegister}">
+                            <p class="alert alert-success" th:text="${successRegister}"></p>
+                        </div>
+                        <div th:if="${passwordError}">
+                            <p class="alert alert-danger" th:text="${passwordError}"></p>
+                        </div>
+                        <div th:if="${errorServer}">
+                            <p class="alert alert-danger" th:text="${serverError}"></p>
                         </div>
                         <form th:action="@{/register-new}" th:object="${adminDto}" method="POST">
                             <div class="form-group row">

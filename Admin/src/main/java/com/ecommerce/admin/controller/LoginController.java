@@ -11,7 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import javax.servlet.http.HttpSession;
+
 import javax.validation.Valid;
 
 @Controller
@@ -28,6 +28,11 @@ public class LoginController {
         return "login";
     }
 
+    @GetMapping("/index")
+    public String home(){
+        return "index";
+    }
+
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("adminDto", new AdminDto());
@@ -42,10 +47,8 @@ public class LoginController {
     @PostMapping("/register-new")
     public String addNewAdmin(@Valid @ModelAttribute("adminDto")AdminDto adminDto,
                               BindingResult result,
-                              Model model,
-                              HttpSession session) {
+                              Model model) {
         try {
-            session.removeAttribute("message");
             if(result.hasErrors()){
                 model.addAttribute("adminDto", adminDto);
                 result.toString();
@@ -55,7 +58,7 @@ public class LoginController {
             Admin admin = adminService.findByUsername(username);
             if(admin != null){
                 model.addAttribute("adminDto", adminDto);
-                session.setAttribute("message","your email has been already registered!");
+                model.addAttribute("error","Your email has been already registered!");
                 System.out.println("admin is not null");
                 return "register";
             }
@@ -63,17 +66,17 @@ public class LoginController {
                 adminDto.setPassword(passwordEncoder.encode(adminDto.getPassword()));
                 adminService.save(adminDto);
                 System.out.println("success");
-                session.setAttribute("message","Registered Successfully");
+                model.addAttribute("successRegister","Registered Successfully!");
                 model.addAttribute("adminDto", adminDto);
             }else {
                 model.addAttribute("adminDto", adminDto);
-                session.setAttribute("message","Password is not same!");
+                model.addAttribute("passwordError","Password is not same!");
                 System.out.println("password is not same");
                 return "register";
             }
         }catch (Exception e){
             e.printStackTrace();
-            session.setAttribute("message","server is error, please try again later!");
+            model.addAttribute("serverError","server is error, please try again later!");
         }
         return "register";
     }
