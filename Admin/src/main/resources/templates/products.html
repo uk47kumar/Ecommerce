@@ -30,6 +30,12 @@
                 <div th:if="${size == 0}">
                     <p>No Product in Shop</p>
                 </div>
+                <div th:if="${success}">
+                    <p th:text="${success}"></p>
+                </div>
+                <div th:if="${error}">
+                    <p th:text="${error}"></p>
+                </div>
                 <a class="btn btn-primary" th:href="@{/add-product}">
                     Add New Category
                 </a>
