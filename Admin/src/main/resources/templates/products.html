@@ -30,14 +30,14 @@
                 <div th:if="${size == 0}">
                     <p>No Product in Shop</p>
                 </div>
-                <div th:if="${success}">
+                <div th:if="${success}" class="text-center alert alert-success">
                     <p th:text="${success}"></p>
                 </div>
-                <div th:if="${error}">
+                <div th:if="${error}" class="text-center alert alert-danger">
                     <p th:text="${error}"></p>
                 </div>
                 <a class="btn btn-primary" th:href="@{/add-product}">
-                    Add New Category
+                    Add New Product
                 </a>
                 <table class="table table-striped" th:if="${size>0}">
                     <thead>
@@ -45,6 +45,7 @@
                         <th scope="col">Name</th>
                         <th scope="col">Category</th>
                         <th scope="col">Price</th>
+                        <th scope="col">Sale Price</th>
                         <th scope="col">Quantity</th>
                         <th scope="col">Image</th>
                         <th scope="col">Update</th>
@@ -56,10 +57,20 @@
                         <th scope="row" th:text="${product.name}">1</th>
                         <td th:text="${product.category.name}"></td>
                         <td th:text="${product.costPrice}"></td>
+                        <td th:text="${product.salePrice}"></td>
                         <td th:text="${product.currentQuantity}"></td>
-                        <td><img></img></td>
-                        <td></td>
-                        <td></td>
+                        <td><img src="" style="height: 40px; width: 40px;"
+                                 th:src="*{'data:image/jpeg;base64,' + {product.image}}"></td>
+                        <td><a th:href="@{/update-product/{id} (id=${product.id})}" class="btn btn-primary">Update</a>
+                        </td>
+                        <td>
+                            <a th:if="${product.activated == true}"
+                               th:href="@{/delete-product/{id} (id = ${product.id})}"
+                               class="btn btn-warning">Deleted</a>
+                            <a th:if="${product.activated == false}"
+                               th:href="@{/enabled-product/{id} (id = ${product.id})}"
+                               class="btn btn-primary">Enabled</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
