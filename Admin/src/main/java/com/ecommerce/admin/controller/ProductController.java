@@ -2,9 +2,11 @@ package com.ecommerce.admin.controller;
 
 import com.ecommerce.library.dto.ProductDto;
 import com.ecommerce.library.model.Category;
+import com.ecommerce.library.model.Product;
 import com.ecommerce.library.service.CategoryService;
 import com.ecommerce.library.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
