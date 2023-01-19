@@ -2,9 +2,25 @@ package com.ecommerce.library.repository;
 
 import com.ecommerce.library.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface ProductRepository extends JpaRepository<Product,Long> {
+import java.util.List;
 
+@Repository
+public interface ProductRepository extends JpaRepository<Product, Long> {
+
+
+//    CUSTOMER
+    @Query("select p from Product p where p.is_activated = true and p.is_deleted = false")
+    List<Product> getAllProducts();
+
+    @Query(value = "select * from products p where p.is_deleted = false and p.is_activated = true order by rand() asc limit 4 ", nativeQuery = true)
+    List<Product> listViewProducts();
+
+    @Query("select p from Product p where p.category.id = ?1")
+    List<Product> getRelatedProducts(Long categoryId);
+
+    @Query(value = "select p from Product p inner join Category c on c.id = p.category.id where c.id = ?1 and p.is_deleted = false and p.is_activated = true")
+    List<Product> getProductsInCategory(Long categoryId);
 }

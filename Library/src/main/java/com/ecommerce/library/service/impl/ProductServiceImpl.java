@@ -6,9 +6,7 @@ import com.ecommerce.library.repository.ProductRepository;
 import com.ecommerce.library.service.ProductService;
 import com.ecommerce.library.utils.ImageUpload;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +21,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ImageUpload imageUpload;
+
+//    FOR ADMIN
 
     @Override
     public List<ProductDto> findAll() {
@@ -130,4 +130,30 @@ public class ProductServiceImpl implements ProductService {
         return productDto;
     }
 
+
+//    FOR CUSTOMER
+    @Override
+    public List<Product> getAllProducts() {
+        return productRepository.getAllProducts();
+    }
+
+    @Override
+    public List<Product> listViewProducts() {
+        return productRepository.listViewProducts();
+    }
+
+    @Override
+    public Product getProductById(Long id) {
+        return productRepository.getById(id);
+    }
+
+    @Override
+    public List<Product> getRelatedProducts(Long categoryId) {
+        return productRepository.getRelatedProducts(categoryId);
+    }
+
+    @Override
+    public List<Product> getProductsInCategory(Long categoryId) {
+        return productRepository.getProductsInCategory(categoryId);
+    }
 }
