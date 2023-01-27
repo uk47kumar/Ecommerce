@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -22,7 +24,13 @@ public class HomeController {
     private CategoryService categoryService;
 
     @RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
-    public String index(Model model) {
+    public String index(Model model, Principal principal, HttpSession session) {
+        if(principal != null){
+            session.setAttribute("username",principal.getName());
+        }
+        else {
+            session.removeAttribute("username");
+        }
         model.addAttribute("title","Home");
         return "home";
     }

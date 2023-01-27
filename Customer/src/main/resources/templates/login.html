@@ -2,28 +2,29 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <!-- Basic -->
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Freshshop - Ecommerce Bootstrap 4 HTML Template</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head th:replace="fragments :: head">
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--    <meta charset="utf-8">-->
+    <!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <!--    <title>Freshshop - Ecommerce Bootstrap 4 HTML Template</title>-->
+    <!--    <meta name="keywords" content="">-->
+    <!--    <meta name="description" content="">-->
+    <!--    <meta name="author" content="">-->
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- Site CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href="css/responsive.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/custom.css">
+    <!--    <link rel="stylesheet" href="style.css">-->
+    <!--    <link rel="preconnect" href="https://fonts.gstatic.com">-->
+    <!--    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">-->
+    <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">-->
+
+    <!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
+    <!--    <link rel="stylesheet" href="css/bootstrap.min.css">-->
+    <!--    &lt;!&ndash; Site CSS &ndash;&gt;-->
+    <!--    <link rel="stylesheet" href="css/style.css">-->
+    <!--    &lt;!&ndash; Responsive CSS &ndash;&gt;-->
+    <!--    <link rel="stylesheet" href="css/responsive.css">-->
+    <!--    &lt;!&ndash; Custom CSS &ndash;&gt;-->
+    <!--    <link rel="stylesheet" href="css/custom.css">-->
 
 </head>
 
@@ -47,58 +48,45 @@
 <!-- Start Slider -->
 <div th:replace="fragments :: slider">
 </div>
+
 <!-- End Slider -->
 
 <section id="login-form">
-    <div class="noi-dung">
+    <!--    <div class="noi-dung">-->
+    <div class="container mt-2">
         <div class="form">
             <h2>Log In</h2>
-            <form action="">
-                <div class="input-form">
-                    <!-- <span>User name</span> -->
-                    <input type="text" placeholder="Name" name="">
+            <div th:if="${param.error}" class="alert alert-warning">
+                <p>Invalid Username or Password !</p>
+            </div>
+            <div th:if="${param.logout}" class="alert alert-success">
+                <p>You have been logout !</p>
+            </div>
+            <form th:action="@{/do-login}" method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username" name="username">
                 </div>
-                <div class="input-form">
-                    <!-- <span>Password</span> -->
-                    <input type="password" placeholder="Password" name="">
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" name="password">
                 </div>
-                <div class="Remember-me">
-                    <label><input type="checkbox" name=""> Remember Me </label>
+                <div class="input-form mt-2">
+                    <p>Do You Not Have An Account ? <a th:href="@{/register}">Sign Up Now </a></p>
                 </div>
-                <div class="input-form">
+                <div class="input-form mt-2">
                     <input type="submit" value="Log In">
                 </div>
-                <div class="input-form">
-                    <p>Do You Already Have An Account ? <a href="Register.html">Sign up now </a></p>
-                </div>
             </form>
-            <h3>Log In With Social Network</h3>
-            <ul class="icon-dang-nhap">
-                <li><i class="fab fa-facebook-f"></i></i></li>
-                <li><i class="fab fa-google"></i></li>
-                <li><i class="fab fa-weibo"></i></li>
-            </ul>
+            <br>
         </div>
     </div>
 
-    <!-- Start copyright  -->
-
-        <div class="footer-copyright">
-            <p class="footer-company">All Rights Reserved. &copy; 2021 <a href="#">Ocean Pream</a> Design By: SE2</a>
-            </p>
-        </div>
-
 </section>
 
-<!-- Start copyright  -->
 
-<!--<div class="footer-copyright">-->
-<!--    <p class="footer-company">All Rights Reserved. &copy; 2021 <a href="#">Ocean Pream</a> Design By: SE2</a></p>-->
-<!--</div>-->
-
-<!-- End copyright  -->
-
-<!--<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>-->
+<!-- Start Footer  -->
+<footer th:replace="fragments :: footer">
+</footer>
+<!-- End Footer  -->
 
 <!-- Js File  -->
 <div th:replace="fragments :: script">
