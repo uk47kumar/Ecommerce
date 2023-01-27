@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class LoginController {
@@ -33,12 +35,13 @@ public class LoginController {
     }
 
     @GetMapping("/index")
-    public String home(Model model){
+    public String home(Model model, Principal principal, HttpSession session){
         model.addAttribute("title","Home Page");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication == null || authentication instanceof AnonymousAuthenticationToken){
             return "redirect:/login";
         }
+        session.setAttribute("username",principal.getName());
         return "index";
     }
 
